@@ -1,0 +1,226 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f1d"/>
+      <stop offset="50%" stop-color="#0d1527"/>
+      <stop offset="100%" stop-color="#050811"/>
+    </linearGradient>
+
+    <linearGradient id="title-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+
+    <linearGradient id="cyan-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.2"/>
+    </linearGradient>
+
+    <linearGradient id="violet-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#ec4899" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <!-- Glowing filters -->
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="glow-core" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Grid Pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.75" stroke-opacity="0.4"/>
+      <circle cx="40" cy="40" r="1" fill="#38bdf8" fill-opacity="0.2"/>
+    </pattern>
+
+    <style>
+      .cloud-pulse {
+        animation: pulse 4s ease-in-out infinite alternate;
+      }
+      .orbit-spin-slow {
+        transform-origin: 980px 210px;
+        animation: spin 25s linear infinite;
+      }
+      .orbit-spin-rev {
+        transform-origin: 980px 210px;
+        animation: spin-rev 35s linear infinite;
+      }
+      .node-float-1 {
+        animation: float1 6s ease-in-out infinite alternate;
+      }
+      .node-float-2 {
+        animation: float2 5s ease-in-out infinite alternate;
+      }
+      .data-dash {
+        stroke-dasharray: 6 6;
+        animation: dash 1.5s linear infinite;
+      }
+      .pill-hover {
+        transition: transform 0.3s ease;
+      }
+      .pill-hover:hover {
+        transform: translateY(-2px);
+      }
+
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      @keyframes spin-rev {
+        from { transform: rotate(360deg); }
+        to { transform: rotate(0deg); }
+      }
+      @keyframes pulse {
+        0% { opacity: 0.35; transform: scale(0.98); }
+        100% { opacity: 0.75; transform: scale(1.02); }
+      }
+      @keyframes float1 {
+        0% { transform: translateY(0px); }
+        100% { transform: translateY(-8px); }
+      }
+      @keyframes float2 {
+        0% { transform: translateY(0px); }
+        100% { transform: translateY(8px); }
+      }
+      @keyframes dash {
+        to { stroke-dashoffset: -12; }
+      }
+    </style>
+  </defs>
+
+  <!-- Background Base Canvas -->
+  <rect width="1200" height="420" rx="16" fill="url(#bg-grad)"/>
+  <rect width="1200" height="420" rx="16" fill="url(#grid)"/>
+
+  <!-- Subtle Ambient Glow Orbs in Background (Stay behind content) -->
+  <circle cx="200" cy="100" r="180" fill="url(#cyan-glow)" filter="url(#glow-core)" opacity="0.25" class="cloud-pulse"/>
+  <circle cx="1020" cy="220" r="220" fill="url(#violet-glow)" filter="url(#glow-core)" opacity="0.3" class="cloud-pulse"/>
+
+  <!-- ================= DYNAMIC BACKGROUND GRAPHIC (Right Side: Multi-Cloud Replication Cluster) ================= -->
+  <g id="dynamic-cluster">
+    <!-- Connecting Orbits & Flow Lines (behind nodes) -->
+    <circle cx="980" cy="210" r="140" fill="none" stroke="#334155" stroke-width="1.5" stroke-dasharray="4 8" opacity="0.5"/>
+    <circle cx="980" cy="210" r="95" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-opacity="0.3" class="data-dash"/>
+    
+    <!-- Flow Connectors to Central Storage Gateway Hub -->
+    <line x1="980" y1="210" x2="880" y2="120" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.6" class="data-dash"/>
+    <line x1="980" y1="210" x2="1080" y2="130" stroke="#818cf8" stroke-width="1.5" stroke-opacity="0.6" class="data-dash"/>
+    <line x1="980" y1="210" x2="870" y2="290" stroke="#06b6d4" stroke-width="1.5" stroke-opacity="0.6" class="data-dash"/>
+    <line x1="980" y1="210" x2="1090" y2="290" stroke="#c084fc" stroke-width="1.5" stroke-opacity="0.6" class="data-dash"/>
+
+    <!-- Central S3 Gateway / Backup Hub Node -->
+    <g transform="translate(980, 210)">
+      <circle r="42" fill="#0f172a" stroke="#38bdf8" stroke-width="2.5" filter="url(#glow-cyan)"/>
+      <circle r="34" fill="#1e293b"/>
+      <!-- S3 / Database Vault Icon -->
+      <path d="M-14 -12 C-14 -16 14 -16 14 -12 C14 -8 -14 -8 -14 -12 Z M-14 -6 C-14 -2 14 -2 14 -6 M-14 2 C-14 6 14 6 14 2 M-14 10 C-14 14 14 14 14 10 M-14 -12 L-14 10 C-14 14 14 14 14 10 L14 -12" 
+            fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+      <text y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" fill="#94a3b8" text-anchor="middle">GATEWAY</text>
+    </g>
+
+    <!-- Satellite Orbit Nodes (Cloud Targets) -->
+    <!-- AWS S3 / Primary Cloud Target (Top Left) -->
+    <g transform="translate(880, 120)" class="node-float-1">
+      <circle r="30" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
+      <text y="-4" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#fbbf24" text-anchor="middle">AWS</text>
+      <text y="10" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="600" fill="#cbd5e1" text-anchor="middle">S3</text>
+    </g>
+
+    <!-- Cloudflare R2 / Zero Egress (Top Right) -->
+    <g transform="translate(1080, 130)" class="node-float-2">
+      <circle r="30" fill="#0f172a" stroke="#f97316" stroke-width="2"/>
+      <text y="-4" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#fb923c" text-anchor="middle">R2</text>
+      <text y="10" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="600" fill="#94a3b8" text-anchor="middle">ZERO EGRESS</text>
+    </g>
+
+    <!-- MinIO / Local On-Prem S3 (Bottom Left) -->
+    <g transform="translate(870, 290)" class="node-float-2">
+      <circle r="30" fill="#0f172a" stroke="#ec4899" stroke-width="2"/>
+      <text y="-4" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#f472b6" text-anchor="middle">MinIO</text>
+      <text y="10" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="600" fill="#cbd5e1" text-anchor="middle">ON-PREM</text>
+    </g>
+
+    <!-- Backblaze B2 / Immutable Vault (Bottom Right) -->
+    <g transform="translate(1090, 290)" class="node-float-1">
+      <circle r="30" fill="#0f172a" stroke="#ef4444" stroke-width="2"/>
+      <text y="-4" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#f87171" text-anchor="middle">B2</text>
+      <text y="10" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="600" fill="#cbd5e1" text-anchor="middle">BACKBLAZE</text>
+    </g>
+
+    <!-- Decorative Orbiting Data Packets -->
+    <g class="orbit-spin-slow">
+      <circle cx="1120" cy="210" r="4.5" fill="#38bdf8" filter="url(#glow-cyan)"/>
+      <circle cx="840" cy="210" r="4" fill="#a855f7"/>
+    </g>
+    <g class="orbit-spin-rev">
+      <circle cx="980" cy="305" r="3.5" fill="#34d399"/>
+      <circle cx="980" cy="115" r="3.5" fill="#f43f5e"/>
+    </g>
+  </g>
+
+  <!-- ================= FOREGROUND HERO CONTENT (Guaranteed Unhidden Foreground) ================= -->
+  <g id="hero-foreground" transform="translate(80, 0)">
+    
+    <!-- Category Mini-Badge -->
+    <g transform="translate(0, 65)">
+      <rect width="210" height="28" rx="14" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" stroke-opacity="0.8"/>
+      <circle cx="14" cy="14" r="5" fill="#22c55e" filter="url(#glow-cyan)"/>
+      <text x="28" y="18" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="700" fill="#38bdf8" letter-spacing="1">AWESOME ECOSYSTEM</text>
+    </g>
+
+    <!-- Main Title (Strictly Foreground with High-Contrast Gradient) -->
+    <text x="0" y="145" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" 
+          font-size="44" font-weight="900" fill="url(#title-grad)" letter-spacing="-1">
+      Cloud Storage &amp;
+    </text>
+    <text x="0" y="195" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" 
+          font-size="44" font-weight="900" fill="#ffffff" letter-spacing="-1">
+      Multi-Cloud Backup
+    </text>
+
+    <!-- Subtitle / Mission Statement -->
+    <text x="0" y="240" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" 
+          font-size="16" font-weight="400" fill="#94a3b8">
+      Curated S3-compatible object stores, deduplicated encrypted archivers,
+    </text>
+    <text x="0" y="265" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" 
+          font-size="16" font-weight="400" fill="#cbd5e1">
+      and automated disaster recovery engines for bulletproof 3-2-1 pipelines.
+    </text>
+
+    <!-- Feature Pills / Highlights -->
+    <g transform="translate(0, 310)">
+      <!-- Pill 1: 3-2-1 Strategy -->
+      <g class="pill-hover">
+        <rect width="135" height="34" rx="8" fill="#111827" stroke="#374151" stroke-width="1"/>
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#38bdf8">🛡️ 3-2-1 Backups</text>
+      </g>
+
+      <!-- Pill 2: S3-Compatible -->
+      <g transform="translate(145, 0)" class="pill-hover">
+        <rect width="130" height="34" rx="8" fill="#111827" stroke="#374151" stroke-width="1"/>
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#818cf8">🗄️ S3-Compatible</text>
+      </g>
+
+      <!-- Pill 3: AES-256 Encryption -->
+      <g transform="translate(285, 0)" class="pill-hover">
+        <rect width="145" height="34" rx="8" fill="#111827" stroke="#374151" stroke-width="1"/>
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#a855f7">🔐 Zero-Knowledge</text>
+      </g>
+
+      <!-- Pill 4: Open Source -->
+      <g transform="translate(440, 0)" class="pill-hover">
+        <rect width="130" height="34" rx="8" fill="#111827" stroke="#374151" stroke-width="1"/>
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#34d399">⚡ Open Source</text>
+      </g>
+    </g>
+
+  </g>
+</svg>
